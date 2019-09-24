@@ -10,13 +10,14 @@ BEGIN
 		
 		SELECT * 
 		FROM (
-		SELECT ROW_NUMBER() OVER(ORDER BY ID) AS NUMBER,
-		ID,
-		[Name],[Address],[Mobile],[Pincode],[State],[City],[Parliamentry] 'Parliamentary',[Legilative] 'Legislative',
+		SELECT ROW_NUMBER() OVER(ORDER BY A.ID) AS NUMBER,
+		A.ID,
+		A.[Name],[Address],[Mobile],[Pincode],C.[Name] 'City',S.[Name] 'State',[Parliamentry] 'Parliamentary',[Legilative] 'Legislative',
 		@TotalCount as TotalCount	
 		FROM [dbo].[User] A
+		INNER JOIN [dbo].[cities] C ON A.City = C.Id
+		INNER JOIN [dbo].[states] S ON A.State = S.id
 	    ) AS TBL
 		WHERE NUMBER BETWEEN ((@CurrentPage - 1) * @NumberOfRecords + 1) AND (@CurrentPage * @NumberOfRecords)
 END
-
 GO

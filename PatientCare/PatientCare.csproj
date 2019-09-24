@@ -338,6 +338,12 @@
     <Content Include="Scripts\utility\common.js" />
     <Content Include="Scripts\utility\error.js" />
     <Content Include="Scripts\Validation\validation.js" />
+    <Content Include="Script\1. tbl_cities.sql" />
+    <Content Include="Script\2. tbl_States.sql" />
+    <Content Include="Script\3. User.sql" />
+    <Content Include="Script\SP_GetCityData.sql" />
+    <Content Include="Script\SP_GetStateData.sql" />
+    <Content Include="Script\SP_GetUserData_Forlist.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -354,7 +360,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Script\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
