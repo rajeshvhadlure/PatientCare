@@ -1,0 +1,113 @@
+﻿﻿@model PatientCare.Models.UserModel
+
+@{
+	ViewBag.Title = "Dashboard";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+	<h1>
+		Dashboard
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="/Home/Dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li class="active">Dashboard</li>
+	</ol>
+</section>
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="form-group">
+				<label class="col-sm-1 control-label">City</label>
+				<div class="col-sm-2">
+					@{ Html.RenderAction("CityDDL", "common"); }
+					@Html.HiddenFor(Model => Model.CityId)
+				</div>
+				<label class="col-sm-1 control-label">State</label>
+				<div class="col-md-2">
+					@{ Html.RenderAction("StateDDL", "common"); }
+					@Html.HiddenFor(Model => Model.StateId)
+				</div>
+				<label class="col-sm-1 control-label">Pincode</label>
+				<div class="col-sm-2">
+					@Html.TextBoxFor(model => model.Pincode, new { @class = "form-control" })
+				</div>
+				<label class="col-sm-1 control-label">Mobile</label>
+				<div class="col-sm-2">
+					@Html.TextBoxFor(model => model.Mobile, new { @class = "form-control" })
+				</div>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="box-body">
+			<div class="form-group">
+				@*<label class="col-sm-1 control-label">Parliament</label>
+					<div class="col-sm-3">
+						@{ Html.RenderAction("CityDDL", "common"); }
+						@Html.HiddenFor(Model => Model.CityId)
+					</div>*@
+				@*<label class="col-md-2 control-label">Legislative Assembly</label>
+					<div class="col-md-3">
+						@{ Html.RenderAction("StateDDL", "common"); }
+						@Html.HiddenFor(Model => Model.State)
+					</div>*@
+			</div>
+		</div>
+		<div class="clearfix"></div>
+		<div class="box-body">
+			<table id="userReportGrid"></table>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</section>
+<script src="~/plugins/gijgo/gijgo.js"></script>
+<script>
+    $(document).ready(function () {
+        applyTriggerNotify();
+        setTimeout(function () {
+            $(".DashboardMM").addClass("active");
+        }, 1000);
+
+		var theTable = $('#clinicListGrid');
+		theTable.find("tbody > tr").find("td:eq(1)").mousedown(function () {
+			$(this).prev().find(":checkbox").click()
+		});
+
+		$("#filter").keyup(function () {
+			$.uiTableFilter(theTable, this.value);
+		});
+
+		$('#filter-form').submit(function () {
+			theTable.find("tbody > tr:visible > td:eq(1)").mousedown();
+			return false;
+		}).focus(); //Give focus to input field
+
+        @{ PatientCare.Models.UserModel user = (PatientCare.Models.UserModel)Session["User"]; }
+        @*var userid = @user.Id;
+        if(userid != 1){
+            $("#UserDashboard").hide();
+        }*@
+	});
+
+	var userReportGrid = $("#userReportGrid").grid({
+		uiLibrary: "bootstrap",
+		responsive: true,
+		dataSource: {
+			url: "/Home/GetAllUserDetails_ForList",
+		},
+		autoLoad: true,
+		columns: [
+			{ field: "Name", title: "Name", width: 100 },
+			{ field: "ID", hidden: true, title: "ID", width: 40 },
+			{ field: "Mobile", title: "Mobile", width: 100 },
+			{ field: "Parliamentary", title: "Parliamentary", width: 100 },
+			{ field: "Legislative", title: "Legislative", width: 100 },
+			{ field: "State", title: "State", width: 100 },
+			{ field: "City", title: "City", width: 100 },
+			{ field: "Pincode", title: "Pincode", width: 100 },
+		],
+		pager: { enable: true, limit: 10, sizes: [10, 20, 50, 100] }
+	});
+
+</script>

@@ -1,0 +1,16 @@
+﻿<select id="stateDDL" class="form-control"></select>
+<script type="text/javascript">
+		$(function () {
+			$.ajax({
+				url: "/common/GetStates",
+				type: "Get",
+				success: function (data) {
+					var s = '<option value="-1">Select</option>';
+					for (var i = 0; i < data.rows.length; i++) {
+						s += '<option value="' + data.rows[i].ID + '">' + data.rows[i].city + '</option>';
+					}
+					$("#stateDDL").html(s);
+				}
+			});
+		});
+</script>
