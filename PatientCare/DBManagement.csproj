@@ -12,8 +12,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PatientCare</RootNamespace>
-    <AssemblyName>PatientCare</AssemblyName>
+    <RootNamespace>DBManagement</RootNamespace>
+    <AssemblyName>DBManagement</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -147,15 +147,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
     <Compile Include="DB\DBManager.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CommonModel.cs" />
+    <Compile Include="Models\CommonUtility.cs" />
+    <Compile Include="Models\ExceptionLogModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Controllers\ImportController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -234,6 +240,8 @@
     <Content Include="dist\js\demo.js" />
     <Content Include="dist\js\pages\dashboard.js" />
     <Content Include="dist\js\pages\dashboard2.js" />
+    <Content Include="EmailTemplate\ForgetPwd.html" />
+    <Content Include="EmailTemplate\UserRegistration.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -338,13 +346,27 @@
     <Content Include="Scripts\utility\common.js" />
     <Content Include="Scripts\utility\error.js" />
     <Content Include="Scripts\Validation\validation.js" />
-    <Content Include="Script\1. tbl_cities.sql" />
-    <Content Include="Script\2. tbl_States.sql" />
-    <Content Include="Script\3. User.sql" />
-    <Content Include="Script\SP_GetCityData.sql" />
-    <Content Include="Script\SP_GetStateData.sql" />
-    <Content Include="Script\SP_GetUserData_Forlist.sql" />
-    <Content Include="Web.config" />
+    <Content Include="Script\1 cities.sql" />
+    <Content Include="Script\10 SP_ChangeUserPassword.sql" />
+    <Content Include="Script\11 SP_CreateUser.sql" />
+    <Content Include="Script\12 SP_ForgotUsernamePassword.sql" />
+    <Content Include="Script\13 SP_GetCityData.sql" />
+    <Content Include="Script\14 SP_GetLegislativeData.sql" />
+    <Content Include="Script\15 SP_GetParliamentData.sql" />
+    <Content Include="Script\16 SP_GetStateData.sql" />
+    <Content Include="Script\17 SP_GetUserData_Forlist.sql" />
+    <Content Include="Script\18 SP_InsertErrorLog.sql" />
+    <Content Include="Script\2 ExceptionMaster.sql" />
+    <Content Include="Script\3 Legislative.sql" />
+    <Content Include="Script\4 Parliament.sql" />
+    <Content Include="Script\5 states.sql" />
+    <Content Include="Script\6 User.sql" />
+    <Content Include="Script\7 UserMaster.sql" />
+    <Content Include="Script\8 Insert records.sql" />
+    <Content Include="Script\9 Sp_AuthorizeUser.sql" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -357,9 +379,16 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Common\CityDDL.cshtml" />
     <Content Include="Views\Common\StateDDL.cshtml" />
+    <Content Include="Views\Common\ParliamentDDL.cshtml" />
+    <Content Include="Views\Common\LegislativeDDL.cshtml" />
+    <Content Include="Views\Import\Index.cshtml" />
+    <Content Include="Views\Authentication\ForgotPassword.cshtml" />
+    <Content Include="Views\Authentication\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
+    <Folder Include="Views\Utility\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

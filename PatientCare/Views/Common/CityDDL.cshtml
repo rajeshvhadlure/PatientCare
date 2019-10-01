@@ -1,13 +1,13 @@
-﻿<select id="cityDDL" class="form-control"></select>
+﻿<select id="cityDDL" class="form-control" onchange="onCityChange();"></select>
 <script type="text/javascript">
 		$(function () {
 			$.ajax({
 				url: "/common/GetCities",
 				type: "Get",
 				success: function (data) {
-					var s = '<option value="-1">Select</option>';  
+					var s = '<option value="">Select</option>';  
 					for (var i = 0; i < data.rows.length; i++) {
-						s += '<option value="' + data.rows[i].ID + '">' + data.rows[i].city + '</option>';
+						s += '<option value="' + data.rows[i].city + '">' + data.rows[i].city + '</option>';
 					} 
 					$("#cityDDL").html(s);  
 				}

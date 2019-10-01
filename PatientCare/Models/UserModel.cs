@@ -1,11 +1,11 @@
-﻿using PatientCare.DB;
+﻿using DBManagement.DB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
 
-namespace PatientCare.Models
+namespace DBManagement.Models
 {
 	public class UserModel
 	{
@@ -16,9 +16,7 @@ namespace PatientCare.Models
 		public string Pincode { get; set; }
 		public string Parliamentary { get; set; }
 		public string Legislative { get; set; }
-		public string StateId { get; set; }
 		public string State { get; set; }
-		public string CityId { get; set; }
 		public string City { get; set; }
 
 		public int CurrentPage { get; set; }
@@ -34,6 +32,12 @@ namespace PatientCare.Models
 			parameters.Add("@CurrentPage", CurrentPage);
 			parameters.Add("@NumberOfRecords", NumberOfRecords);
 			parameters.Add("@OrderBy", OrderBy);
+			parameters.Add("@Mobile", Mobile);
+			parameters.Add("@Pincode", Pincode);
+			parameters.Add("@State", State);
+			parameters.Add("@City", City);
+			parameters.Add("@Parliamentary", Parliamentary);
+			parameters.Add("@Legislative", Legislative);
 			return TransformUserDataForList(DBManager.GetData(GetUserDataForList_SP, parameters));
 		}
 

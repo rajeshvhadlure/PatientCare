@@ -29,7 +29,7 @@
 		<header class="main-header">
 			<a href="" class="logo">
 				<span class="logo-mini"></span>
-				<span class="logo-lg">Inspinary Care</span>
+				<span class="logo-lg">DB management</span>
 			</a>
 			<nav class="navbar navbar-static-top">
 				<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -68,9 +68,15 @@
 			<section class="sidebar">
 				<ul class="sidebar-menu" data-widget="tree">
 					<li class="treeview DashboardMM WMenu">
-						<a href="/home/dashboard">
+						<a href="/home/index">
 							<i class="fa fa-dashboard"></i>
 							<span>Dashboard</span>
+						</a>
+					</li>
+					<li class="treeview ImportMM WMenu">
+						<a href="/import/index">
+							<i class="fa fa-dashboard"></i>
+							<span>Import</span>
 						</a>
 					</li>
 				</ul>
@@ -112,12 +118,12 @@
     $(document).ready(function () {
         $(".sidebar-menu ul").removeClass("active");
         $(".sidebar-menu li").removeClass("active");
-        @*@{ Clinic.Models.LoginModel.LoginModel user = (Clinic.Models.LoginModel.LoginModel)Session["User"]; }
+        @{ DBManagement.Models.LoginModel user = (DBManagement.Models.LoginModel)Session["User"]; }
         @if (user != null)
         {
             ViewBag.UserName = user.FirstName + " " + user.LastName;
-        }*@
-/**/
+        }
+
         $("#UsernameDisplay").text('@ViewBag.UserName');
         $("#UsernameDisplayDetails").text('@ViewBag.UserName');
         @*var userid = @user.ID;

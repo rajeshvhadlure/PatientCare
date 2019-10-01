@@ -1,25 +1,19 @@
-﻿using PatientCare.Models;
+﻿using DBManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 
-namespace PatientCare.Controllers
+namespace DBManagement.Controllers
 {
 	public class CommonController : Controller
 	{
-		// GET: Common
 		public ActionResult CityDDL()
 		{
 			return PartialView("CityDDL");
 		}
-
-		public ActionResult StateDDL()
-		{
-			return PartialView("StateDDL");
-		}
-
 		public JsonResult GetCities()
 		{
 			try
@@ -39,10 +33,15 @@ namespace PatientCare.Controllers
 			}
 			catch (Exception ex)
 			{
-				return null;
+				UtilityController.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
 			}
+			return null;
 		}
 
+		public ActionResult StateDDL()
+		{
+			return PartialView("StateDDL");
+		}
 		public JsonResult GetStates()
 		{
 			try
@@ -55,15 +54,72 @@ namespace PatientCare.Controllers
 							select new
 							{
 								id = data.StateID,
-								city = data.StateName.ToString()
+								state = data.StateName.ToString()
 							}).ToList()
 				};
 				return Json(jsonData, JsonRequestBehavior.AllowGet);
 			}
 			catch (Exception ex)
 			{
-				return null;
+				UtilityController.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
 			}
+			return null;
+		}
+
+		public ActionResult ParliamentDDL()
+		{
+			return PartialView("ParliamentDDL");
+		}
+		public JsonResult GetParliament()
+		{
+			try
+			{
+				CommonModel model = new CommonModel();
+				List<CommonModel> parliamentList = model.GetParliamentData();
+				var jsonData = new
+				{
+					rows = (from data in parliamentList
+							select new
+							{
+								id = data.ParliamentID,
+								parliament = data.ParliamentName.ToString()
+							}).ToList()
+				};
+				return Json(jsonData, JsonRequestBehavior.AllowGet);
+			}
+			catch (Exception ex)
+			{
+				UtilityController.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+			}
+			return null;
+		}
+
+		public ActionResult LegislativeDDL()
+		{
+			return PartialView("LegislativeDDL");
+		}
+		public JsonResult GetLegislatives()
+		{
+			try
+			{
+				CommonModel model = new CommonModel();
+				List<CommonModel> legislativeList = model.GetLegislativeData();
+				var jsonData = new
+				{
+					rows = (from data in legislativeList
+							select new
+							{
+								id = data.LegislativeID,
+								legislative = data.LegislativeName.ToString()
+							}).ToList()
+				};
+				return Json(jsonData, JsonRequestBehavior.AllowGet);
+			}
+			catch (Exception ex)
+			{
+				UtilityController.LogException(ex, MethodBase.GetCurrentMethod().ReflectedType.Name, MethodBase.GetCurrentMethod().Name);
+			}
+			return null;
 		}
 	}
 }

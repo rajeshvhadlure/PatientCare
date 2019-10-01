@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace PatientCare
+namespace DBManagement
 {
 	public class FilterConfig
 	{

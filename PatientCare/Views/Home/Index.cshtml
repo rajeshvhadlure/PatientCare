@@ -1,4 +1,4 @@
-﻿﻿@model PatientCare.Models.UserModel
+﻿﻿@model DBManagement.Models.UserModel
 
 @{
 	ViewBag.Title = "Dashboard";
@@ -10,7 +10,7 @@
 		Dashboard
 	</h1>
 	<ol class="breadcrumb">
-		<li><a href="/Home/Dashboard"><i class="fa fa-dashboard"></i> Home</a></li>
+		<li><a href="/Home/Index"><i class="fa fa-dashboard"></i>Home</a></li>
 		<li class="active">Dashboard</li>
 	</ol>
 </section>
@@ -19,15 +19,15 @@
 	<div class="box box-primary">
 		<div class="box-body">
 			<div class="form-group">
-				<label class="col-sm-1 control-label">City</label>
-				<div class="col-sm-2">
-					@{ Html.RenderAction("CityDDL", "common"); }
-					@Html.HiddenFor(Model => Model.CityId)
-				</div>
 				<label class="col-sm-1 control-label">State</label>
 				<div class="col-md-2">
 					@{ Html.RenderAction("StateDDL", "common"); }
-					@Html.HiddenFor(Model => Model.StateId)
+					@Html.HiddenFor(Model => Model.State)
+				</div>
+				<label class="col-sm-1 control-label">City</label>
+				<div class="col-sm-2">
+					@{ Html.RenderAction("CityDDL", "common"); }
+					@Html.HiddenFor(Model => Model.City)
 				</div>
 				<label class="col-sm-1 control-label">Pincode</label>
 				<div class="col-sm-2">
@@ -42,16 +42,24 @@
 		<div class="clearfix"></div>
 		<div class="box-body">
 			<div class="form-group">
-				@*<label class="col-sm-1 control-label">Parliament</label>
-					<div class="col-sm-3">
-						@{ Html.RenderAction("CityDDL", "common"); }
-						@Html.HiddenFor(Model => Model.CityId)
-					</div>*@
-				@*<label class="col-md-2 control-label">Legislative Assembly</label>
-					<div class="col-md-3">
-						@{ Html.RenderAction("StateDDL", "common"); }
-						@Html.HiddenFor(Model => Model.State)
-					</div>*@
+				<label class="col-sm-1 control-label">Parliament</label>
+				<div class="col-sm-2">
+					@{ Html.RenderAction("LegislativeDDL", "common"); }
+					@Html.HiddenFor(Model => Model.Legislative)
+				</div>
+				<label class="col-md-1 control-label">Legislative Assembly</label>
+				<div class="col-md-2">
+					@{ Html.RenderAction("ParliamentDDL", "common"); }
+					@Html.HiddenFor(Model => Model.Parliamentary)
+				</div>
+				<label class="col-md-1 control-label"></label>
+				<div class="col-md-2">
+
+				</div>
+				<label class="col-md-1 control-label"></label>
+				<div class="col-md-2">
+					<button type="button" id="btnSearch" class="btn btn-primary btn-flat">Search</button>
+				</div>
 			</div>
 		</div>
 		<div class="clearfix"></div>
@@ -69,7 +77,7 @@
             $(".DashboardMM").addClass("active");
         }, 1000);
 
-		var theTable = $('#clinicListGrid');
+		var theTable = $('#userReportGrid');
 		theTable.find("tbody > tr").find("td:eq(1)").mousedown(function () {
 			$(this).prev().find(":checkbox").click()
 		});
@@ -83,18 +91,20 @@
 			return false;
 		}).focus(); //Give focus to input field
 
-        @{ PatientCare.Models.UserModel user = (PatientCare.Models.UserModel)Session["User"]; }
+        @{ DBManagement.Models.LoginModel user = (DBManagement.Models.LoginModel)Session["User"]; }
         @*var userid = @user.Id;
         if(userid != 1){
             $("#UserDashboard").hide();
         }*@
 	});
 
+	// on page load by default
 	var userReportGrid = $("#userReportGrid").grid({
 		uiLibrary: "bootstrap",
 		responsive: true,
 		dataSource: {
 			url: "/Home/GetAllUserDetails_ForList",
+			data: { searchString: "", state: $("#stateDDL").val(), city: $("#cityDDL").val(), parliament: $("#parliamentDDL").val(), legislative: $("#legislativeDDL").val(), pincode: $("#Pincode").val(), mobile: $("#Mobile").val() }
 		},
 		autoLoad: true,
 		columns: [
@@ -110,4 +120,25 @@
 		pager: { enable: true, limit: 10, sizes: [10, 20, 50, 100] }
 	});
 
+	// After search button click
+	$('#btnSearch').on('click', function () {
+		userReportGrid.reload({ searchString: "", state: $("#stateDDL").val(), city: $("#cityDDL").val(), parliament: $("#parliamentDDL").val(), legislative: $("#legislativeDDL").val(), pincode: $("#Pincode").val(), mobile: $("#Mobile").val()});
+	});
+
+	//Drop down change events
+	function onStateChange() {
+		$("#State").val($("#stateDDL").val());
+	}
+
+	function onCityChange() {
+		$("#City").val($("#cityDDL").val());
+	}
+
+	function onParliamentChange() {
+		$("#Parliamentary").val($("#parliamentDDL").val());
+	}
+
+	function onLegislativeChange() {
+		$("#Legislative").val($("#legislativeDDL").val());
+	}
 </script>

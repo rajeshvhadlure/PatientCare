@@ -1,7 +1,18 @@
+/****** Object:  StoredProcedure [dbo].[SP_GetUserData_Forlist]    Script Date: 10/1/2019 6:47:07 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 CREATE PROCEDURE [dbo].[SP_GetUserData_Forlist]
 @CurrentPage int,
 @NumberOfRecords int,
 @OrderBy nvarchar(250),
+@Mobile nvarchar(15),
+@Pincode nvarchar(10),
+@State nvarchar(250),
+@City nvarchar(250),
+@Parliamentary nvarchar(max),
+@Legislative nvarchar(max), 
 @TotalCount int = 0 OUT 
 AS
 BEGIN
@@ -20,4 +31,5 @@ BEGIN
 	    ) AS TBL
 		WHERE NUMBER BETWEEN ((@CurrentPage - 1) * @NumberOfRecords + 1) AND (@CurrentPage * @NumberOfRecords)
 END
+
 GO

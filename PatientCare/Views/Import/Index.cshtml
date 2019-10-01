@@ -1,0 +1,33 @@
+﻿﻿@model DBManagement.Models.UserModel
+
+@{
+	ViewBag.Title = "Dashboard";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="content-header">
+	<h1>
+		Import
+	</h1>
+	<ol class="breadcrumb">
+		<li><a href="/Home/Index"><i class="fa fa-dashboard"></i>Home</a></li>
+		<li class="active">Import</li>
+	</ol>
+</section>
+
+<section class="content">
+	<div class="box box-primary">
+		<div class="box-body">
+			<div class="form-group">
+				@using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+				{
+					<input class="col-sm-2" type="file" name="postedFile" />
+					<div class="col-sm-1">
+						<input type="submit" value="Import" />
+					</div>
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
